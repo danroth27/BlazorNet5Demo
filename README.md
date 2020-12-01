@@ -1,2 +1,3 @@
-# BlazorNet5Demo
-Blazor in .NET 5 demo
+# Blazor in .NET 5 demo
+
+[Demo script](outline.md)
