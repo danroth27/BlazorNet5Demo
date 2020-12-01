@@ -6,7 +6,7 @@
 - Enable auto rebuild and refresh in VS: Tools > Options > Projects and Solutions > ASP.NET Core > Auto build and refresh option > Auto build and refresh browser after saving changes
 - Screen res at 1080p
 - Open BlazorNet5
-- Blazor WASM perf slide ready to show
+- Blazor WASM [perf slide](blazor-wasm-perf.pptx) ready to show
 - Remove Component1 from Index.razor
 - Comment out `Console.Readline` in BlazorNet5.Client/Program.cs
 
