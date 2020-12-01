@@ -1,0 +1,15 @@
+﻿@page "/js-isolation"
+@inject ExampleJsInterop ExampleJsInterop
+
+<h3>JavaScript isolation</h3>
+
+<button class="btn btn-primary" style="background-color: @color" @onclick="Prompt">Show prompt</button>
+
+@code {
+    string color = "blue";
+
+    async Task Prompt()
+    {
+        color = await ExampleJsInterop.Prompt("What is your favorite color?");
+    }
+} 

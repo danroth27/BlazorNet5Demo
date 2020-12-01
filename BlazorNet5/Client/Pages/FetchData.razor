@@ -1,0 +1,53 @@
+﻿@page "/fetchdata"
+@using BlazorNet5.Shared
+@inject IWeatherForecastService WeatherForecastService
+
+<h1>Weather forecast</h1>
+<h2>The next 9999 days</h2>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<div style="overflow: auto;height: 600px">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <Virtualize ItemsProvider="GetWeatherRange" ItemSize="50">
+                <ItemContent Context="forecast">
+                    <tr>
+                        <td>@forecast.Date.ToShortDateString()</td>
+                        <td>@forecast.TemperatureC</td>
+                        <td>@forecast.TemperatureF</td>
+                        <td>@forecast.Summary</td>
+                    </tr>
+                </ItemContent>
+                <Placeholder>
+                    <tr>
+                        <td>@(DateTime.Now.AddDays(context.Index).ToShortDateString())</td>
+                        <td>Loading...</td>
+                        <td>Loading...</td>
+                        <td>Loading...</td>
+                    </tr>
+                </Placeholder>
+            </Virtualize>
+        </tbody>
+    </table>
+</div>
+
+@code {
+    async ValueTask<ItemsProviderResult<WeatherForecast>> GetWeatherRange(ItemsProviderRequest request)
+    {
+        int days = 9999;
+        Console.WriteLine(request.Count);
+        var numForecasts = Math.Min(request.Count, days - request.StartIndex);
+        var forecasts = await WeatherForecastService.GetForecastAsync(request.StartIndex, numForecasts);
+
+        return new ItemsProviderResult<WeatherForecast>(forecasts, days);
+    }
+}
